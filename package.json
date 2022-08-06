@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-ticketing-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "express": "^4.18.1",
+    "mocha": "^10.0.0"
+  }
+}
