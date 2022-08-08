@@ -2,14 +2,17 @@ const ChildProcess = require('child_process');
 
 const CARRIERS = ['renfe'];
 
-const search = async ({ origin, destination, date }) => {
+const search = async env => {
   const deferredSearches = CARRIERS.map(carrier => {
     const CarrierSearch = require(`./carriers/${carrier}/search`);
-    return CarrierSearch.search({ origin, destination, date });
+    return CarrierSearch.search(env);
   });
 
-  const result = await Promise.all(deferredSearches);
-  return result.reduce((previous, current) => [...current, ...previous], []);
+  const results = await Promise.all(deferredSearches);
+
+  return results.reduce((previous, current) => [...current.result, ...previous.result], {
+    result: [],
+  });
 };
 
 const spawnSearchWorkers = async ({ origin, destination, date }) => {

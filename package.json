@@ -16,6 +16,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/node": "^7.18.10",
-    "@babel/plugin-proposal-pipeline-operator": "^7.18.9"
+    "@babel/plugin-proposal-pipeline-operator": "^7.18.9",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.6"
   }
 }
