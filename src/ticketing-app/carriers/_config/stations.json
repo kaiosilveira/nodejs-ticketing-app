@@ -1,0 +1,14 @@
+{
+  "renfe": {
+    "1200": { "id": 1200, "name": "Barcelona Sants" },
+    "1201": { "id": 1201, "name": "Madrid Atocha" }
+  },
+  "ouigo": {
+    "120": { "id": 120, "name": "Barcelona Sants" },
+    "121": { "id": 121, "name": "Madrid Atocha" }
+  },
+  "avlo": {
+    "12": { "id": 12, "name": "Barcelona Sants" },
+    "13": { "id": 13, "name": "Madrid Atocha" }
+  }
+}

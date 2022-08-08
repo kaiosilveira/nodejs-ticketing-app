@@ -11,4 +11,4 @@ const parseTickets = env => {
   };
 };
 
-module.exports = parseTickets;
+export default parseTickets;

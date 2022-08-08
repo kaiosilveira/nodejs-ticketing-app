@@ -1,5 +1,5 @@
-const express = require('express');
-const TicketingApp = require('../../../ticketing-app');
+import express from 'express';
+import TicketingApp from '../../../ticketing-app';
 
 const app = express();
 

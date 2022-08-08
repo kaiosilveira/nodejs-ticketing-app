@@ -1,21 +1,20 @@
-const ChildProcess = require('child_process');
+import * as ChildProcess from 'child_process';
+import Carriers from './carriers';
 
-const CARRIERS = ['renfe'];
+const resolveAll = promiseArray => Promise.all(promiseArray)
+const mergeResults = results => results.reduce((previous, current) => {
+  return [...current.result, ...previous.result];
+}, { result: [] });
 
 const search = async env => {
-  const deferredSearches = CARRIERS.map(carrier => {
-    const CarrierSearch = require(`./carriers/${carrier}/search`);
-    return CarrierSearch.search(env);
-  });
-
-  const results = await Promise.all(deferredSearches);
-
-  return results.reduce((previous, current) => [...current.result, ...previous.result], {
-    result: [],
-  });
-};
+  return Carriers.map(carrier => carrier.search(env))
+    |> resolveAll(#)
+    |> await(#)
+    |> mergeResults(#);
+}
 
 const spawnSearchWorkers = async ({ origin, destination, date }) => {
+  const CARRIERS = ['renfe'];
   const aggregatedTickets = [];
 
   const deferredProcesses = CARRIERS.map(carrier => {
@@ -40,17 +39,4 @@ const spawnSearchWorkers = async ({ origin, destination, date }) => {
   return aggregatedTickets.reduce((previous, current) => [...current, ...previous], []);
 };
 
-const reserve = async ({ carrier }) => {
-  await new Promise(resolve => {
-    const carrierProcess = ChildProcess.fork(`./src/ticketing-app/carriers/${carrier}/index.js`);
-
-    carrierProcess.on('exit', resolve);
-    carrierProcess.on('message', reservationResult => {
-      resolve(reservationResult);
-    });
-
-    carrierProcess.send({ type: 'RESERVE' });
-  });
-};
-
-module.exports = { search, spawnSearchWorkers, reserve };
+export default { search, spawnSearchWorkers };
