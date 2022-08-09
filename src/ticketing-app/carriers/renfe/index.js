@@ -9,4 +9,8 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-export default { name: CARRIER_NAME, search: env => search({ ...env, _logger: logger }) };
+export default {
+  name: CARRIER_NAME,
+  search: env => search({ ...env, _logger: logger }),
+  _logger: logger,
+};

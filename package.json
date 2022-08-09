@@ -11,6 +11,7 @@
     "serve:with-child-processes": "USE_CHILD_PROCESSES=true node ./dist/interface-adapters/http/index.js"
   },
   "dependencies": {
+    "@babel/cli": "^7.18.10",
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",

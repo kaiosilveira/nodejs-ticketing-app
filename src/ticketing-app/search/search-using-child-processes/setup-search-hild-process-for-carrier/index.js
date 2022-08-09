@@ -3,7 +3,7 @@ import * as ChildProcess from 'child_process';
 
 const setupSearchChildProcessForCarrier = env => carrier => {
   const childProcess = ChildProcess.fork(
-    Path.resolve(__dirname, `../../carriers/${carrier.name}/process-handler.js`)
+    Path.resolve(__dirname, `../../../carriers/${carrier.name}/process-handler.js`)
   );
 
   return new Promise(resolve => {
