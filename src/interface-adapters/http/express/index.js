@@ -5,11 +5,9 @@ const app = express();
 
 app.get('/search', async (req, res) => {
   const result = await TicketingApp.search({
-    params: {
-      origin: req.query.origin,
-      destination: req.query.destination,
-      date: new Date(req.query.date),
-    },
+    origin: req.query.origin,
+    destination: req.query.destination,
+    date: new Date(req.query.date),
   });
 
   return res.json(result);

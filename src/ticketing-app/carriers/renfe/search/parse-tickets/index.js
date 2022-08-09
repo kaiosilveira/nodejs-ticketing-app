@@ -1,4 +1,5 @@
 const parseTickets = env => {
+  env.logger.info('parsing final result');
   return {
     ...env,
     result: env['_renfe'].result.map(ticket => ({

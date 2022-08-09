@@ -3,12 +3,19 @@ import filterTicketsMatchingDateTimeDelta from './filter-tickets-matching-date-t
 import parseTickets from './parse-tickets';
 import removePrivateValues from './remove-private-values';
 
+const finalize = env => {
+  env.logger.info('finalizing')
+  return env;
+}
+
 const search = async env => {
+  env.logger.info('initializing search...');
   return fetchTimetable(env)
     |> await(#)
     |> filterTicketsMatchingDateTimeDelta(#)
     |> parseTickets(#)
-    |> removePrivateValues(#);
+    |> removePrivateValues(#)
+    |> finalize(#);
 };
 
 export default search;

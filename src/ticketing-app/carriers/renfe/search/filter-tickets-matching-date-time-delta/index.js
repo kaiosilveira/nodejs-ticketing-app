@@ -1,6 +1,8 @@
 import moment from 'moment';
 
 const filterTicketsMatchingDateTimeDelta = env => {
+  env.logger.info('filtering results');
+
   const timetable = env._renfe.timetable;
   const targetDate = env.params.date;
   const previousDay = moment(targetDate).subtract(1, 'day').subtract(23, 'hours');
