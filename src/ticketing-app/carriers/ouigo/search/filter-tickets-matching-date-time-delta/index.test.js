@@ -1,5 +1,4 @@
 import chai from 'chai';
-import { noop } from 'mocha/lib/utils';
 import filterTicketsMatchingDateTimeDelta from '.';
 
 chai.should();
@@ -9,7 +8,6 @@ describe('filterTicketsMatchingDateTimeDelta', () => {
     const date = new Date('2022-08-30T00:30:00.000Z');
     const env = {
       params: { date },
-      logger: { info: noop },
       _renfe: {
         timetable: [
           { date: '2022-08-28T00:00:00.000Z', origin: 1200, destination: 1300, price: 151725 },

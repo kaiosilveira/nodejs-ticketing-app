@@ -1,4 +1,6 @@
-const http = require('http');
-const expressApp = require('./express');
+import http from 'http';
+import expressApp from './express';
 
-http.createServer(expressApp).listen(3000, () => console.log(`server running at 3000 🚀`));
+http
+  .createServer(expressApp)
+  .listen(process.env.PORT || 3000, () => console.log(`server running at ${process.env.PORT} 🚀`));

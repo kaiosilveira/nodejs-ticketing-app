@@ -16,4 +16,4 @@ const fetchTimetable = async env => {
   });
 };
 
-export default fetchTimetable;
+module.exports = fetchTimetable;

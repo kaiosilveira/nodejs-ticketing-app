@@ -5,12 +5,16 @@
   "license": "MIT",
   "scripts": {
     "start:web": "babel-node ./src/interface-adapters/http/index.js",
-    "test:unit": "mocha --require @babel/register ./src/**/*.test.js"
+    "test:unit": "mocha --require @babel/register ./src/**/*.test.js",
+    "build": "babel ./src --out-dir ./dist --copy-files",
+    "serve": "node ./dist/interface-adapters/http/index.js",
+    "serve:with-child-processes": "USE_CHILD_PROCESSES=true node ./dist/interface-adapters/http/index.js"
   },
   "dependencies": {
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
+    "chai-spies": "^1.0.0",
     "express": "^4.18.1",
     "mocha": "^10.0.0",
     "moment": "^2.29.4",
