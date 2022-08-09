@@ -1,14 +1,12 @@
 import winston from 'winston';
 import search from './search';
 
+const CARRIER_NAME = 'renfe';
+
 const logger = winston.createLogger({
   level: 'silly',
-  defaultMeta: { carrier: 'renfe', pid: process.pid },
+  defaultMeta: { carrier: CARRIER_NAME, pid: process.pid },
   transports: [new winston.transports.Console()],
 });
 
-export default {
-  name: 'renfe',
-  logger,
-  search: env => search({ ...env, logger }),
-};
+export default { name: CARRIER_NAME, search: env => search({ ...env, _logger: logger }) };

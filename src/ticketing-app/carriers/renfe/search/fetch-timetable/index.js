@@ -5,7 +5,7 @@ const createRandomDelay = () => parseInt(Math.random() * 999, 10);
 
 const fetchTimetable = async env => {
   return new Promise(resolve => {
-    env.logger.info('fetching timetable');
+    env._logger.info('fetching timetable');
     fs.readFile(Path.resolve(__dirname, 'timetable.json'), (err, data) => {
       if (err) throw err;
       setTimeout(
