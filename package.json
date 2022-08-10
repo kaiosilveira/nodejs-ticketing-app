@@ -30,5 +30,7 @@
     "@babel/preset-env": "^7.18.10",
     "@babel/runtime": "^7.18.9",
     "sinon": "^14.0.0"
-  }
+  },
+  "repository": "https://github.com/kaiosilveira/nodejs-ticketing-app.git",
+  "author": "Kaio Silveira <silveira.kaio@icloud.com>"
 }
