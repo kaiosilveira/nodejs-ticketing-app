@@ -26,6 +26,57 @@ There is another environment variable, called `USE_RANDOM_DELAY`, that is used t
 
 The results were pretty clear: the single-process approach wins. And this is probably because child processes are great as an alternative to handle CPU-heavy computations, but are too expensive for non CPU-intensive tasks, which is our case, as we have a more network-bound\* result times. See the detailed results below:
 
+**Single process approach results:**
+
+```
+➜ loadtest -c 10 -n 100 'http://localhost:3001/search?origin=1000&destination=2000&date=\"2022-09-01\"'
+[Thu Aug 11 2022 14:24:31 GMT+0100 (Western European Summer Time)] INFO Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
+[Thu Aug 11 2022 14:24:35 GMT+0100 (Western European Summer Time)] INFO Requests: 84 (84%), requests per second: 17, mean latency: 569.4 ms
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Target URL:          http://localhost:3001/search?origin=1000&destination=2000&date=\"2022-09-01\"
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Max requests:        100
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Concurrency level:   10
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Agent:               none
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Completed requests:  100
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Total errors:        0
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Total time:          5.676769688 s
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Requests per second: 18
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Mean latency:        555.8 ms
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO Percentage of the requests served within a certain time
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO   50%      537 ms
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO   90%      708 ms
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO   95%      829 ms
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO   99%      886 ms
+[Thu Aug 11 2022 14:24:36 GMT+0100 (Western European Summer Time)] INFO  100%      886 ms (longest request)
+```
+
+**Child process approach results:**
+
+```
+➜ loadtest -c 10 -n 100 'http://localhost:3000/search?origin=1000&destination=2000&date=\"2022-09-01\"'
+[Thu Aug 11 2022 14:24:42 GMT+0100 (Western European Summer Time)] INFO Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Target URL:          http://localhost:3000/search?origin=1000&destination=2000&date=\"2022-09-01\"
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Max requests:        100
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Concurrency level:   10
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Agent:               none
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Completed requests:  100
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Total errors:        0
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Total time:          2.9606977889999997 s
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Requests per second: 34
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Mean latency:        293.4 ms
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO Percentage of the requests served within a certain time
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO   50%      294 ms
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO   90%      349 ms
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO   95%      391 ms
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO   99%      454 ms
+[Thu Aug 11 2022 14:24:45 GMT+0100 (Western European Summer Time)] INFO  100%      454 ms (longest request)
+```
+
 \* For simplicity, network calls were simulated using a `setTimeout` instead, so we can control the latency times
 
 ## Conclusion
