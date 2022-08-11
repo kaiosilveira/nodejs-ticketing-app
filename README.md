@@ -14,6 +14,7 @@ Considering the scenario above, a question is raised: does a child process appro
 
 ## Experiment structure
 
+
 ## Results
 
 ## Conclusion
